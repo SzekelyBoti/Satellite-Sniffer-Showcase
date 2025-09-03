@@ -1,15 +1,21 @@
+#ifndef SATELLITETRACKER_SATELLITERENDERER_H
+#define SATELLITETRACKER_SATELLITERENDERER_H
+
 #pragma once
 #include <vector>
-
+#include "IRenderer.h"
 #include "GPSPosition.h"
-#include "SatelliteIcon.h"
 
 class SatelliteRenderer {
-private:
-    SatelliteIcon* satelliteIcon;
-
 public:
-    SatelliteRenderer();
-    ~SatelliteRenderer();
-    void render(const std::vector<GPSPosition>& positions);
+    explicit SatelliteRenderer(IRenderer* renderer);
+    ~SatelliteRenderer() = default;
+
+    void render(const std::vector<GPSPosition>& positions, int width, int height);
+
+private:
+    IRenderer* renderer = nullptr;
 };
+
+
+#endif // SATELLITETRACKER_SATELLITERENDERER_H

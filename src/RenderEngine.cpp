@@ -1,5 +1,4 @@
 ﻿#include "RenderEngine.h"
-
 #include <memory>
 #include <vector>
 

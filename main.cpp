@@ -16,8 +16,10 @@ int main() {
     if (!renderer.create(2560, 1440, "Satellite Tracker")) return -1;
 
     // Load Earth map
+    EarthMap earth("earth.png");
     MapRenderer map(&renderer);
-    if (!map.loadMap("earth.png")) {
+
+    if (!map.loadMap(earth)) {
         std::cerr << "Failed to load map\n";
         return -1;
     }
