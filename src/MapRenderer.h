@@ -1,15 +1,20 @@
 ﻿#pragma once
-#include "SDLRenderer.h"
 #include <string>
+#include "IRenderer.h"
 
 class MapRenderer {
 public:
-  MapRenderer(SDLRenderer* renderer) : renderer(renderer) {}
+  explicit MapRenderer(IRenderer* renderer);
+  ~MapRenderer() = default;
+
   bool loadMap(const std::string& filename);
   void render(int width, int height);
 
 private:
-  SDLRenderer* renderer;
-  SDL_Texture* mapTexture = nullptr;
+  IRenderer* renderer = nullptr;
+  void* mapTexture = nullptr;
 };
+
+
+
 

@@ -12,6 +12,11 @@ add_executable(SatelliteTracker
         main.cpp
         src/SDLRenderer.cpp
         src/MapRenderer.cpp
+        src/IRenderer.h
+        src/RenderEngine.h
+        src/RenderEngine.cpp
+        src/SatelliteRenderer.h
+        src/SatelliteRenderer.cpp
 )
 
 target_link_libraries(SatelliteTracker PRIVATE SDL2::SDL2 SDL2_image::SDL2_image)
