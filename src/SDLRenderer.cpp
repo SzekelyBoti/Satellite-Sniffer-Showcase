@@ -1,4 +1,4 @@
-﻿#include "SDLRenderer.h"
+#include "SDLRenderer.h"
 
 SDLRenderer::~SDLRenderer() {
     if (renderer) SDL_DestroyRenderer(renderer);
@@ -80,6 +80,3 @@ void SDLRenderer::resize(int width, int height) {
         SDL_SetWindowSize(window, width, height);
     }
 }
-
-
-

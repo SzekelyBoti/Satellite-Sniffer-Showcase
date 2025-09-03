@@ -1,4 +1,4 @@
-﻿#include "MapRenderer.h"
+#include "MapRenderer.h"
 #include <iostream>
 
 MapRenderer::MapRenderer(IRenderer* renderer)
@@ -23,6 +23,3 @@ void MapRenderer::render(int width, int height) {
     renderer->drawTexture(mapTexture, 0, 0, width, height);
   }
 }
-
-
-

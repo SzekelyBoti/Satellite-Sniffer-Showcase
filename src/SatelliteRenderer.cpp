@@ -1,4 +1,4 @@
-﻿#include "SatelliteRenderer.h"
+#include "SatelliteRenderer.h"
 
 SatelliteRenderer::SatelliteRenderer(IRenderer* renderer)
     : renderer(renderer) {}
