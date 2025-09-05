@@ -16,7 +16,7 @@ int main() {
     if (!renderer.create(2560, 1440, "Satellite Tracker")) return -1;
 
     // Load Earth map
-    EarthMap earth("earth.png");
+    EarthMap earth("../src/earth.png");
     MapRenderer map(&renderer);
 
     if (!map.loadMap(earth)) {
