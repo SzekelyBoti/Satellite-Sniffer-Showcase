@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 
-class SatelliteData {
-private:
+struct SatelliteData {
+public:
     std::string name;
     std::string tleLine1;
     std::string tleLine2;

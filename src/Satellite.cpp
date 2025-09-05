@@ -12,9 +12,18 @@ Satellite::~Satellite() {
 }
 
 void Satellite::updatePosition(TLEtoGPSConverter *converter) {
+    if (converter) {
+        position = converter-> convert(tleLine1, tleLine2);
+    }
 }
 
 GPSPosition Satellite::getPosition() const { return position; }
 
 void Satellite::initFromData(SatelliteData *data) {
+    if (data) {
+        name = data -> name;
+        tleLine1 = data -> tleLine1;
+        tleLine2 = data -> tleLine2;
+        position = GPSPosition();
+    }
 }
