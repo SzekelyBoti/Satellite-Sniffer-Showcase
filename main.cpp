@@ -4,12 +4,13 @@
 #include <iostream>
 #include <vector>
 
+#include "GPSPosition.h"
 #include "MapRenderer.h"
 #include "SDLRenderer.h"
-#include "SatelliteRenderer.h"
-#include "GPSPosition.h"
-#include "SatelliteManager.h"
 #include "SGP4Converter.h"
+#include "SatelliteIcon.h"
+#include "SatelliteManager.h"
+#include "SatelliteRenderer.h"
 
 int main() {
     /*
@@ -65,7 +66,7 @@ int main() {
     }
     */
     SDLRenderer renderer;
-    if (!renderer.create(2560, 1440, "Satellite Tracker")) return -1;
+    if (!renderer.create(1920, 1080, "Satellite Tracker")) return -1;
 
     EarthMap earth("../src/earth.png");
     MapRenderer map(&renderer);
@@ -73,8 +74,12 @@ int main() {
         std::cerr << "Failed to load map\n";
         return -1;
     }
-
+    SatelliteIcon satellite("../src/satellite.png");
     SatelliteRenderer satelliteRenderer(&renderer);
+    if (!satelliteRenderer.loadSatellite(satellite)) {
+        std::cerr << "Failed to load map\n";
+        return -1;
+    }
     SGP4Converter converter;
     SatelliteManager manager;
 
@@ -89,13 +94,13 @@ int main() {
 
         renderer.clear();
 
-        map.render(2560, 1440);
+        map.render(1920, 1080);
 
         // Update all satellite positions
         manager.updateAllPositions(&converter);
 
         // Render them
-        satelliteRenderer.render(manager.getPositions(), 2560, 1440);
+        satelliteRenderer.render(manager.getPositions(), 1920, 1080);
 
         renderer.present();
     }
