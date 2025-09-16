@@ -1,10 +1,13 @@
 #pragma once
-#include "IRenderer.h"
-#include "GPSPosition.h"
+#include <string>
 
 class SatelliteIcon {
 public:
-    SatelliteIcon();
-    ~SatelliteIcon();
-    void render(IRenderer* renderer, const GPSPosition& position);
+    SatelliteIcon() = default;
+    explicit SatelliteIcon(const std::string& filename);
+
+    bool load(const std::string& filename);
+    const std::string& getFile() const { return satellitePng; }
+private:
+    std::string satellitePng;
 };
