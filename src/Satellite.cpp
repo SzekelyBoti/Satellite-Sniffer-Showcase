@@ -27,3 +27,15 @@ void Satellite::initFromData(SatelliteData *data) {
         position = GPSPosition();
     }
 }
+
+bool Satellite::isVisible() const {
+    return visible;
+}
+
+void Satellite::setIsVisible(bool visible) {
+    this->visible = visible;
+}
+
+const std::string &Satellite::getName() const {
+    return name;
+}
