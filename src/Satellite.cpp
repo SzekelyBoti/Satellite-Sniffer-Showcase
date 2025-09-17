@@ -5,7 +5,7 @@
 Satellite::Satellite(const std::string &name,
                      const std::string &tleLine1,
                      const std::string &tleLine2,
-                     GPSPosition position) : name(name), tleLine1(tleLine1), tleLine2(tleLine2), position(position) {
+                     GPSPosition position) : name(name), tleLine1(tleLine1), tleLine2(tleLine2), position(position), visible(true) {
 }
 
 Satellite::~Satellite() {
@@ -25,5 +25,18 @@ void Satellite::initFromData(SatelliteData *data) {
         tleLine1 = data -> tleLine1;
         tleLine2 = data -> tleLine2;
         position = GPSPosition();
+        visible = true;
     }
+}
+
+bool Satellite::isVisible() const {
+    return visible;
+}
+
+void Satellite::setIsVisible(bool visible) {
+    this->visible = visible;
+}
+
+const std::string &Satellite::getName() const {
+    return name;
 }

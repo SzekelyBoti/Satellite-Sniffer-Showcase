@@ -13,4 +13,9 @@ public:
     void loadFromFile(const std::string& file);
     void updateAllPositions(TLEtoGPSConverter* converter);
     std::vector<GPSPosition> getPositions() const;
+
+    std::vector<std::string> getSatelliteNames() const;
+    void toggleSatellite(int index);
+    bool isSatelliteVisible(int index) const;
+    size_t getSatelliteCount() const;
 };

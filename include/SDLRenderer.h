@@ -19,6 +19,7 @@ public:
     void destroyTexture(void* texture) override;
     void drawPoint(int x, int y) override;
     void resize(int width, int height) override;
+    SDL_Renderer* getSDLRenderer();
 
 private:
     SDL_Window* window = nullptr;
