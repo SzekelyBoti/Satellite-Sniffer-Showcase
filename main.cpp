@@ -65,8 +65,24 @@ int main() {
         renderer.present();
     }
     */
+
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        std::cerr << "SDL_Init Error: " << SDL_GetError() << "\n";
+        return -1;
+    }
+
+    SDL_DisplayMode displayMode;
+    if (SDL_GetCurrentDisplayMode(0, &displayMode) != 0) {
+        std::cerr << "SDL_GetCurrentDisplayMode Error: " << SDL_GetError() << "\n";
+        SDL_Quit();
+        return -1;
+    }
+
+    int screenWidth = displayMode.w;
+    int screenHeight = displayMode.h;
+
     SDLRenderer renderer;
-    if (!renderer.create(1920, 1080, "Satellite Tracker")) return -1;
+    if (!renderer.create(screenWidth, screenHeight, "Satellite Tracker")) return -1;
 
     EarthMap earth("../src/earth.png");
     MapRenderer map(&renderer);
@@ -94,13 +110,13 @@ int main() {
 
         renderer.clear();
 
-        map.render(1920, 1080);
+        map.render(screenWidth, screenHeight);
 
         // Update all satellite positions
         manager.updateAllPositions(&converter);
 
         // Render them
-        satelliteRenderer.render(manager.getPositions(), 1920, 1080);
+        satelliteRenderer.render(manager.getPositions(), screenWidth, screenHeight);
 
         renderer.present();
     }
