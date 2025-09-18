@@ -1,10 +1,12 @@
 #include "UIManager.h"
 #include <iostream>
 #include <algorithm>
+#include <iomanip>
+#include <sstream>
 
 UIManager::UIManager(SDL_Renderer* renderer, int width, int height)
     : renderer(renderer), font(nullptr), width(width), height(height),
-      showUI(true), dropdownOpen(false), selectedSatellite(-1), hoveredSatellite(-1) {}
+      showUI(true), dropdownOpen(false), selectedSatellite(-1), hoveredSatellite(-1), speedMultiplier(1.0) {}
 
 UIManager::~UIManager() {
     if (font) {
@@ -35,6 +37,7 @@ void UIManager::render(const std::vector<std::string>& satelliteNames,
     if (!showUI || !font) return;
 
     renderDropdown(satelliteNames, visibilityStates);
+    renderSpeedIndicator();
 }
 
 void UIManager::renderDropdown(const std::vector<std::string>& satelliteNames,
@@ -78,7 +81,6 @@ void UIManager::renderDropdown(const std::vector<std::string>& satelliteNames,
         int listHeight = std::min(static_cast<int>(satelliteNames.size()), maxVisibleItems) * itemHeight;
         SDL_Rect listRect = {width - dropdownWidth - 10, 40, dropdownWidth, listHeight};
 
-        // Background
         SDL_SetRenderDrawColor(renderer, 40, 40, 50, 255);
         SDL_RenderFillRect(renderer, &listRect);
         SDL_SetRenderDrawColor(renderer, 80, 80, 100, 255);
@@ -113,6 +115,53 @@ void UIManager::renderDropdown(const std::vector<std::string>& satelliteNames,
             SDL_SetRenderDrawColor(renderer, 70, 70, 90, 255);
             SDL_RenderFillRect(renderer, &scrollBg);
         }
+    }
+}
+
+void UIManager::renderSpeedIndicator() {
+    if (!font) return;
+
+    const int indicatorWidth = 200;
+    const int indicatorHeight = 30;
+    const int indicatorX = 10;
+    const int indicatorY = 10;
+
+    SDL_Rect bgRect = {indicatorX, indicatorY, indicatorWidth, indicatorHeight};
+    SDL_SetRenderDrawColor(renderer, 30, 30, 40, 200);
+    SDL_RenderFillRect(renderer, &bgRect);
+    SDL_SetRenderDrawColor(renderer, 100, 100, 120, 255);
+    SDL_RenderDrawRect(renderer, &bgRect);
+
+    std::ostringstream speedStream;
+    speedStream << "Speed: " << std::fixed << std::setprecision(1) << speedMultiplier << "x";
+    std::string speedText = speedStream.str();
+
+    renderText(speedText, indicatorX + 10, indicatorY, {255, 255, 255, 255});
+
+    const int barWidth = 150;
+    const int barHeight = 8;
+    const int barX = indicatorX + 10;
+    const int barY = indicatorY + 22;
+
+    SDL_Rect barBg = {barX, barY, barWidth, barHeight};
+    SDL_SetRenderDrawColor(renderer, 50, 50, 60, 255);
+    SDL_RenderFillRect(renderer, &barBg);
+
+    double logSpeed = std::log(speedMultiplier) / std::log(128.0);
+    int filledWidth = static_cast<int>(barWidth * logSpeed);
+    filledWidth = std::max(0, std::min(filledWidth, barWidth));
+
+    if (filledWidth > 0) {
+        SDL_Rect barFill = {barX, barY, filledWidth, barHeight};
+
+        if (speedMultiplier < 8.0) {
+            SDL_SetRenderDrawColor(renderer, 0, 200, 0, 255);
+        } else if (speedMultiplier < 32.0) {
+            SDL_SetRenderDrawColor(renderer, 200, 200, 0, 255);
+        } else {
+            SDL_SetRenderDrawColor(renderer, 200, 0, 0, 255);
+        }
+        SDL_RenderFillRect(renderer, &barFill);
     }
 }
 
@@ -175,6 +224,10 @@ void UIManager::toggleUI() {
 
 bool UIManager::isUIVisible() const {
     return showUI;
+}
+
+void UIManager::setSpeedMultiplier(double multiplier) {
+    speedMultiplier = multiplier;
 }
 
 void UIManager::renderText(const std::string& text, int x, int y, SDL_Color color) {

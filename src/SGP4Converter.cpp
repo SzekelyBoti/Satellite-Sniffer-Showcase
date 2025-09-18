@@ -6,8 +6,8 @@
 #include "sgp4/libsgp4/DateTime.h"
 #include <stdexcept>
 #include <iostream>
-#define _USE_MATH_DEFINES
-#include <math.h>
+#define USE_MATH_DEFINES
+#include <cmath>
 
 SGP4Converter::SGP4Converter() {}
 SGP4Converter::~SGP4Converter() {}

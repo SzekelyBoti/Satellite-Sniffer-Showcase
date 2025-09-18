@@ -1,4 +1,5 @@
 #include "SDLRenderer.h"
+#include <SDL_image.h>
 
 SDLRenderer::~SDLRenderer() {
     if (renderer) SDL_DestroyRenderer(renderer);
