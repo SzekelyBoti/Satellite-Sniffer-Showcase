@@ -11,7 +11,7 @@ public:
     SatelliteManager();
     ~SatelliteManager();
     void loadFromFile(const std::string& file);
-    void updateAllPositions(TLEtoGPSConverter* converter);
+    void updateAllPositions(TLEtoGPSConverter* converter, double simTime);
     std::vector<GPSPosition> getPositions() const;
 
     std::vector<std::string> getSatelliteNames() const;
