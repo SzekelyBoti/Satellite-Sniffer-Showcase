@@ -38,7 +38,6 @@ void SatelliteManager::updateAllPositions(TLEtoGPSConverter* converter, double s
 std::vector<GPSPosition> SatelliteManager::getPositions() const {
     std::vector<GPSPosition> positions;
     for (const auto& sat : satellites) {
-        // only updates visible satellites
         if (sat.isVisible()) {
             positions.push_back(sat.getPosition());
         }

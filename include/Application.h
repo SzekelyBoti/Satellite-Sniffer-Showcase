@@ -1,5 +1,4 @@
 #pragma once
-#include <SDL.h>
 #include "SDLRenderer.h"
 #include "MapRenderer.h"
 #include "SatelliteRenderer.h"

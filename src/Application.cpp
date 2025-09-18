@@ -36,7 +36,7 @@ bool Application::init() {
         return false;
     }
 
-    // Load earth map
+
     EarthMap earth("../src/resources/earth.png");
     map = new MapRenderer(&renderer);
     if (!map->loadMap(earth)) {
@@ -44,7 +44,7 @@ bool Application::init() {
         return false;
     }
 
-    // Load satellite icon
+
     SatelliteIcon satellite("../src/resources/satellite.png");
     satelliteRenderer = new SatelliteRenderer(&renderer);
     if (!satelliteRenderer->loadSatellite(satellite)) {
@@ -52,17 +52,15 @@ bool Application::init() {
         return false;
     }
 
-    // Load TLEs
+
     manager.loadFromFile("../src/resources/satellites.txt");
 
-    // UI
     ui = new UIManager(renderer.getSDLRenderer(), screenWidth, screenHeight);
     if (!ui->init()) {
         std::cerr << "Failed to initialize UI\n";
         return false;
     }
 
-    // Update manager
     updateManager = new UpdateManager(this);
 
     isRunning = true;
@@ -111,13 +109,13 @@ void Application::run() {
 
         std::vector<bool> visibilityStates;
         for (size_t i = 0; i < manager.getSatelliteCount(); ++i)
-            visibilityStates.push_back(manager.isSatelliteVisible(i));
+            visibilityStates.push_back(manager.isSatelliteVisible(static_cast<int>(i)));
 
+        ui->setSpeedMultiplier(updateManager->getSpeedMultiplier());
         ui->render(manager.getSatelliteNames(), visibilityStates);
 
         renderer.present();
 
-        SDL_Delay(16); // ~60 FPS
     }
 }
 

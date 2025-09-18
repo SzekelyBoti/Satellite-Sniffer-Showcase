@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-
 #include "GPSPosition.h"
 #include "SatelliteData.h"
 #include "TLEtoGPSConverter.h"
