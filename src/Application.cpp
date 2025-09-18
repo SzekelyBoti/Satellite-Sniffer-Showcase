@@ -36,21 +36,24 @@ bool Application::init() {
         return false;
     }
 
-    EarthMap earth("../src/earth.png");
+
+    EarthMap earth("../src/resources/earth.png");
     map = new MapRenderer(&renderer);
     if (!map->loadMap(earth)) {
         std::cerr << "Failed to load map\n";
         return false;
     }
 
-    SatelliteIcon satellite("../src/satellite.png");
+
+    SatelliteIcon satellite("../src/resources/satellite.png");
     satelliteRenderer = new SatelliteRenderer(&renderer);
     if (!satelliteRenderer->loadSatellite(satellite)) {
         std::cerr << "Failed to load satellite icon\n";
         return false;
     }
 
-    manager.loadFromFile("../src/satellites.txt");
+
+    manager.loadFromFile("../src/resources/satellites.txt");
 
     ui = new UIManager(renderer.getSDLRenderer(), screenWidth, screenHeight);
     if (!ui->init()) {

@@ -42,7 +42,6 @@ add_executable(SatelliteTracker
         include/GPSPosition.h
         include/UpdateManager.h
         include/UpdateMode.h
-        include/UIController.h
         include/SGP4Converter.h
 
         src/Application.cpp
@@ -57,7 +56,6 @@ add_executable(SatelliteTracker
         src/SatelliteManager.cpp
         src/GPSPosition.cpp
         src/UpdateManager.cpp
-        src/UIController.cpp
         src/SGP4Converter.cpp
         include/UIManager.h
         src/UIManager.cpp
