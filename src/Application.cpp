@@ -37,7 +37,7 @@ bool Application::init() {
     }
 
     // Load earth map
-    EarthMap earth("../src/earth.png");
+    EarthMap earth("../src/resources/earth.png");
     map = new MapRenderer(&renderer);
     if (!map->loadMap(earth)) {
         std::cerr << "Failed to load map\n";
@@ -45,7 +45,7 @@ bool Application::init() {
     }
 
     // Load satellite icon
-    SatelliteIcon satellite("../src/satellite.png");
+    SatelliteIcon satellite("../src/resources/satellite.png");
     satelliteRenderer = new SatelliteRenderer(&renderer);
     if (!satelliteRenderer->loadSatellite(satellite)) {
         std::cerr << "Failed to load satellite icon\n";
@@ -53,7 +53,7 @@ bool Application::init() {
     }
 
     // Load TLEs
-    manager.loadFromFile("../src/satellites.txt");
+    manager.loadFromFile("../src/resources/satellites.txt");
 
     // UI
     ui = new UIManager(renderer.getSDLRenderer(), screenWidth, screenHeight);
