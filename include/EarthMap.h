@@ -1,18 +1,14 @@
 #pragma once
-#include <string>
+#include "RenderableAsset.h"
 
-class EarthMap {
+class EarthMap : public RenderableAsset {
 public:
     EarthMap() = default;
-    explicit EarthMap(const std::string& filename);
+    explicit EarthMap(const std::string& file);
 
-    bool load(const std::string& filename);
-    const std::string& getFile() const { return mapFile; }
-
-    void setZoom(float z) { zoomLevel = z; }
-    float getZoom() const { return zoomLevel; }
+    void setZoom(float z);
+    float getZoom() const;
 
 private:
-    std::string mapFile;
     float zoomLevel = 1.0f;
 };

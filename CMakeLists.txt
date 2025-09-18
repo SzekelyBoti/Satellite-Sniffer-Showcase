@@ -60,6 +60,8 @@ add_executable(SatelliteTracker
         src/UpdateManager.cpp
         src/UIController.cpp
         src/SGP4Converter.cpp
+        include/RenderableAsset.h
+        src/ReadableAsset.cpp
 )
 
 # ============ Linking =============

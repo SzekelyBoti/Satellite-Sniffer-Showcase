@@ -29,9 +29,9 @@ void SatelliteManager::loadFromFile(const std::string& file) {
     }
 }
 
-void SatelliteManager::updateAllPositions(TLEtoGPSConverter* converter) {
+void SatelliteManager::updateAllPositions(TLEtoGPSConverter* converter, double simTime) {
     for (auto& sat : satellites) {
-        sat.updatePosition(converter);
+        sat.updatePosition(converter, simTime);
     }
 }
 

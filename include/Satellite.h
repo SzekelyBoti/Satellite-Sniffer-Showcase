@@ -20,7 +20,7 @@ public:
 
     ~Satellite();
 
-    void updatePosition(TLEtoGPSConverter *converter);
+    void updatePosition(TLEtoGPSConverter *converter, double simTime);
 
     GPSPosition getPosition() const;
 

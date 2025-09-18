@@ -11,9 +11,9 @@ Satellite::Satellite(const std::string &name,
 Satellite::~Satellite() {
 }
 
-void Satellite::updatePosition(TLEtoGPSConverter *converter) {
+void Satellite::updatePosition(TLEtoGPSConverter* converter, double simTime) {
     if (converter) {
-        position = converter-> convert(tleLine1, tleLine2);
+        position = converter->convert(tleLine1, tleLine2, simTime);
     }
 }
 

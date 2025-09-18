@@ -1,13 +1,8 @@
 #pragma once
-#include <string>
+#include "RenderableAsset.h"
 
-class SatelliteIcon {
+class SatelliteIcon : public RenderableAsset {
 public:
     SatelliteIcon() = default;
-    explicit SatelliteIcon(const std::string& filename);
-
-    bool load(const std::string& filename);
-    const std::string& getFile() const { return satellitePng; }
-private:
-    std::string satellitePng;
+    explicit SatelliteIcon(const std::string& file);
 };
