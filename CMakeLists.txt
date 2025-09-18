@@ -30,7 +30,6 @@ add_executable(SatelliteTracker
         include/Application.h
         include/IRenderer.h
         include/SDLRenderer.h
-        include/RenderEngine.h
         include/MapRenderer.h
         include/SatelliteRenderer.h
         include/SatelliteIcon.h
@@ -48,7 +47,6 @@ add_executable(SatelliteTracker
 
         src/Application.cpp
         src/SDLRenderer.cpp
-        src/RenderEngine.cpp
         src/MapRenderer.cpp
         src/SatelliteRenderer.cpp
         src/SatelliteIcon.cpp

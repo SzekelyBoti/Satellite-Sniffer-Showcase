@@ -8,6 +8,7 @@ enum class UpdateMode {
     REALTIME,
     SIMULATION
 };
+class Application;
 
 class UpdateManager {
 public:

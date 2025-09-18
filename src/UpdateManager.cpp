@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <iostream>
 #include <ostream>
+#include "Application.h"
 
 UpdateManager::UpdateManager(Application* app)
     : mode(UpdateMode::MANUAL),
