@@ -80,3 +80,7 @@ void SDLRenderer::resize(int width, int height) {
         SDL_SetWindowSize(window, width, height);
     }
 }
+
+SDL_Renderer* SDLRenderer::getSDLRenderer() {
+    return renderer;
+}

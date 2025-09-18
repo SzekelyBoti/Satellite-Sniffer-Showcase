@@ -11,6 +11,7 @@ private:
     std::string tleLine1;
     std::string tleLine2;
     GPSPosition position;
+    bool visible;
 
 public:
     Satellite(const std::string &name,
@@ -25,4 +26,8 @@ public:
     GPSPosition getPosition() const;
 
     void initFromData(SatelliteData *data);
+
+    bool isVisible() const;
+    void setIsVisible(bool visible);
+    const std::string& getName() const;
 };

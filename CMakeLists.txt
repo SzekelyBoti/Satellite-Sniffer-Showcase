@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 # ============ SDL2 ===============
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2_image CONFIG REQUIRED)
+find_package(SDL2_ttf CONFIG REQUIRED)
 
 # ============ SGP4 ===============
 find_library(SGP4_LIBRARY NAMES sgp4 libsgp4)
@@ -60,6 +61,8 @@ add_executable(SatelliteTracker
         src/UpdateManager.cpp
         src/UIController.cpp
         src/SGP4Converter.cpp
+        include/UIManager.h
+        src/UIManager.cpp
         include/RenderableAsset.h
         src/ReadableAsset.cpp
 )
@@ -69,6 +72,7 @@ target_link_libraries(SatelliteTracker
         PRIVATE
         SDL2::SDL2
         SDL2_image::SDL2_image
+        SDL2_ttf::SDL2_ttf
         ${SGP4_LIBRARY}
 )
 
