@@ -12,6 +12,21 @@
 SGP4Converter::SGP4Converter() {}
 SGP4Converter::~SGP4Converter() {}
 
+/**
+ * @brief Converts TLE data into a GPSPosition at a specified simulation time.
+ *
+ * This function uses the SGP4 algorithm to calculate the satellite's
+ * Earth-centered position from the given two-line element (TLE) data. The
+ * position is returned as latitude, longitude, and altitude. The simulation
+ * time `simTime` is added to a fixed start time (the first time this function
+ * is called) to compute the satellite's position at the desired moment.
+ *
+ * @param line1 The first line of the TLE data.
+ * @param line2 The second line of the TLE data.
+ * @param simTime Simulation time in seconds since the start of the simulation.
+ * @return GPSPosition The satellite's position at the specified simulation time.
+ * @throws std::exception if SGP4 computation fails.
+ */
 GPSPosition SGP4Converter::convert(const std::string& line1,
                                   const std::string& line2,
                                   double simTime) {

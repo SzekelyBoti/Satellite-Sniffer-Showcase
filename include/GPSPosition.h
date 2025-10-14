@@ -1,21 +1,27 @@
 #pragma once
 
+// Represents a geographic position using latitude, longitude, and altitude
 class GPSPosition {
 public:
-    GPSPosition() = default;
-    GPSPosition(double lat, double lon, double alt);
-    ~GPSPosition();
+  GPSPosition() = default;
 
-    double getLatitude() const;
-    double getLongitude() const;
-    double getAltitude() const;
+  // Constructs a GPS position with specified latitude, longitude, and altitude
+  GPSPosition(double lat, double lon, double alt);
 
-    void setLatitude(double lat);
-    void setLongitude(double lon);
-    void setAltitude(double alt);
+  ~GPSPosition() = default;
 
-  private:
-    double latitude = 0.0;
-    double longitude = 0.0;
-    double altitude = 0.0;
+  // Getters
+  double getLatitude() const;   // Returns latitude in degrees
+  double getLongitude() const;  // Returns longitude in degrees
+  double getAltitude() const;   // Returns altitude in meters
+
+  // Setters
+  void setLatitude(double lat);   // Sets latitude
+  void setLongitude(double lon);  // Sets longitude
+  void setAltitude(double alt);   // Sets altitude
+
+private:
+  double latitude = 0.0;   // Latitude in degrees
+  double longitude = 0.0;  // Longitude in degrees
+  double altitude = 0.0;   // Altitude in meters
 };
