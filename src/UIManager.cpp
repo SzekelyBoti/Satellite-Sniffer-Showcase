@@ -4,6 +4,16 @@
 #include <iomanip>
 #include <sstream>
 
+/**
+ * @brief Constructs a UIManager with a given SDL_Renderer and screen dimensions.
+ *
+ * Initializes UI-related state, including dropdown visibility, selected and
+ * hovered satellites, and the simulation speed multiplier.
+ *
+ * @param renderer Pointer to the SDL_Renderer used for drawing UI elements.
+ * @param width Width of the screen or UI area.
+ * @param height Height of the screen or UI area.
+ */
 UIManager::UIManager(SDL_Renderer* renderer, int width, int height)
     : renderer(renderer), font(nullptr), width(width), height(height),
       showUI(true), dropdownOpen(false), selectedSatellite(-1), hoveredSatellite(-1), speedMultiplier(1.0) {}
@@ -14,6 +24,14 @@ UIManager::~UIManager() {
     }
 }
 
+/**
+ * @brief Initializes the UIManager, setting up SDL_ttf and loading a font.
+ *
+ * Attempts to initialize the SDL_ttf library. Then tries to load a default
+ * font from a local path, and falls back to a system font if necessary.
+ *
+ * @return true if initialization succeeds and a font is loaded, false otherwise.
+ */
 bool UIManager::init() {
     if (TTF_Init() == -1) {
         std::cerr << "TTF_Init failed: " << TTF_GetError() << std::endl;
@@ -32,6 +50,17 @@ bool UIManager::init() {
     return true;
 }
 
+/**
+ * @brief Renders the UI elements on the screen.
+ *
+ * Checks if the UI should be visible and if a font is loaded.
+ * If so, it renders the satellite selection dropdown and the current
+ * simulation speed indicator.
+ *
+ * @param satelliteNames A list of satellite names to display in the dropdown.
+ * @param visibilityStates A corresponding list of booleans indicating whether
+ *        each satellite is currently visible.
+ */
 void UIManager::render(const std::vector<std::string>& satelliteNames,
                       const std::vector<bool>& visibilityStates) {
     if (!showUI || !font) return;
@@ -40,6 +69,18 @@ void UIManager::render(const std::vector<std::string>& satelliteNames,
     renderSpeedIndicator();
 }
 
+/**
+ * @brief Renders the satellite selection dropdown UI.
+ *
+ * Draws a dropdown box in the top-right corner of the screen, showing
+ * the number of satellites and their visibility status. Handles both
+ * open and closed states with a visual arrow indicator. When open,
+ * displays a scrollable list of satellites with color-coded visibility
+ * squares and highlights hovered items.
+ *
+ * @param satelliteNames List of satellite names to display in the dropdown.
+ * @param visibilityStates List of booleans indicating each satellite's visibility.
+ */
 void UIManager::renderDropdown(const std::vector<std::string>& satelliteNames,
                               const std::vector<bool>& visibilityStates) {
     const int dropdownWidth = 300;
@@ -118,6 +159,19 @@ void UIManager::renderDropdown(const std::vector<std::string>& satelliteNames,
     }
 }
 
+/**
+ * @brief Renders the simulation speed indicator on the screen.
+ *
+ * Displays a rectangular panel in the top-left corner showing the current
+ * simulation speed as text (e.g., "Speed: 4x") and a horizontal bar
+ * representing the speed magnitude. The bar color changes based on the speed:
+ * - Green for low speeds
+ * - Yellow for medium speeds
+ * - Red for high speeds
+ *
+ * Uses logarithmic scaling to map speed values to the bar width, providing
+ * better visual feedback across a wide range of multipliers.
+ */
 void UIManager::renderSpeedIndicator() {
     if (!font) return;
 
@@ -165,6 +219,18 @@ void UIManager::renderSpeedIndicator() {
     }
 }
 
+/**
+ * @brief Handles SDL input events for the UI, specifically the satellite dropdown.
+ *
+ * Processes mouse clicks and mouse motion events:
+ * - Clicking the dropdown header toggles its open/closed state.
+ * - Clicking on an item in the open dropdown selects that satellite.
+ * - Moving the mouse over items highlights them.
+ *
+ * @param e The SDL_Event to handle.
+ * @return true if the event affected the UI (e.g., dropdown toggled or satellite selected),
+ *         false otherwise.
+ */
 bool UIManager::handleEvent(const SDL_Event& e) {
     if (!showUI) return false;
 
@@ -214,22 +280,61 @@ bool UIManager::handleEvent(const SDL_Event& e) {
 
     return false;
 }
+
+/**
+ * @brief Returns the index of the currently selected satellite in the dropdown.
+ *
+ * If no satellite is selected, returns -1.
+ *
+ * @return Index of selected satellite, or -1 if none.
+ */
 int UIManager::getSelectedSatellite() const {
     return selectedSatellite;
 }
 
+/**
+ * @brief Toggles the visibility of the UI overlay.
+ *
+ * When called, this function will switch the `showUI` flag:
+ * - If the UI is currently visible, it will be hidden.
+ * - If the UI is currently hidden, it will be shown.
+ */
 void UIManager::toggleUI() {
     showUI = !showUI;
 }
 
+/**
+ * @brief Checks whether the UI overlay is currently visible.
+ *
+ * @return true if the UI is visible, false otherwise.
+ */
 bool UIManager::isUIVisible() const {
     return showUI;
 }
 
+/**
+ * @brief Sets the current speed multiplier used by the simulation.
+ *
+ * This value affects how fast the simulated time progresses relative to real time.
+ *
+ * @param multiplier The new speed multiplier to apply (e.g., 1.0 for real time, 2.0 for 2x speed).
+ */
 void UIManager::setSpeedMultiplier(double multiplier) {
     speedMultiplier = multiplier;
 }
 
+/**
+ * @brief Renders a string of text at a specified position on the screen.
+ *
+ * This function creates a texture from the given text and color, and then
+ * draws it using the SDL renderer at coordinates (x, y). After rendering,
+ * the temporary texture is destroyed to free resources.
+ *
+ * @param text The string to render.
+ * @param x The X-coordinate for the top-left corner of the text.
+ * @param y The Y-coordinate for the top-left corner of the text.
+ * @param color The color to use for rendering the text (SDL_Color).
+ */
 void UIManager::renderText(const std::string& text, int x, int y, SDL_Color color) {
     SDL_Texture* texture = createTextTexture(text, color);
     if (!texture) return;
@@ -241,6 +346,18 @@ void UIManager::renderText(const std::string& text, int x, int y, SDL_Color colo
     SDL_DestroyTexture(texture);
 }
 
+/**
+ * @brief Creates an SDL_Texture from a text string using the current font.
+ *
+ * This function uses SDL_ttf to render the given text onto a surface, then
+ * converts that surface into an SDL_Texture suitable for rendering with
+ * the SDL renderer. The caller is responsible for rendering and eventually
+ * destroying the returned texture.
+ *
+ * @param text The string to convert into a texture.
+ * @param color The color to render the text in (SDL_Color).
+ * @return SDL_Texture* Pointer to the created texture, or nullptr if creation fails.
+ */
 SDL_Texture* UIManager::createTextTexture(const std::string& text, SDL_Color color) {
     if (!font) return nullptr;
 

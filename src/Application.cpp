@@ -6,9 +6,39 @@
 #include "EarthMap.h"
 #include "SatelliteIcon.h"
 
+/**
+ * @brief Constructs the Application object with default values.
+ * Initializes the application as not running and screen dimensions to 0.
+ */
 Application::Application() : isRunning(false), screenWidth(0), screenHeight(0) {}
-Application::~Application() {}
 
+Application::~Application() {
+    delete map;
+    delete satelliteRenderer;
+    delete ui;
+    delete updateManager;
+
+    TTF_Quit();
+    SDL_Quit();
+}
+
+/**
+ * @brief Initializes the application, including SDL, TTF, display, rendering, map, satellites, UI, and update manager.
+ *
+ * @return true if initialization succeeded, false otherwise.
+ *
+ * Steps performed:
+ * 1. Initialize SDL video subsystem.
+ * 2. Initialize SDL_ttf for font rendering.
+ * 3. Retrieve current display mode to set screen dimensions.
+ * 4. Create the main renderer with full screen width and height.
+ * 5. Load the Earth map texture via MapRenderer.
+ * 6. Load the satellite icon via SatelliteRenderer.
+ * 7. Load satellite data from a file into SatelliteManager.
+ * 8. Initialize the UIManager for rendering UI elements.
+ * 9. Create UpdateManager for simulation time management.
+ * 10. Set application running flag to true if all steps succeed.
+ */
 bool Application::init() {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cerr << "SDL_Init Error: " << SDL_GetError() << "\n";
@@ -67,6 +97,35 @@ bool Application::init() {
     return true;
 }
 
+/**
+ * @brief Main application loop. Handles events, updates simulation, and renders graphics.
+ *
+ * The loop runs while the application is active (`isRunning`):
+ * 1. Event Handling:
+ *    - Poll SDL events.
+ *    - Quit event sets `isRunning` to false.
+ *    - Delegate input events to UIManager.
+ *    - Toggle satellite visibility if a satellite is selected from UI.
+ *    - Handle keyboard shortcuts:
+ *        - Right arrow: advance simulation speed step.
+ *        - Left arrow: reverse simulation speed step.
+ *        - Tab: toggle UI visibility.
+ *        - 'v': toggle visibility for all satellites.
+ *        - Escape: exit the application.
+ *
+ * 2. Update:
+ *    - Update simulation time via UpdateManager.
+ *    - Update satellite positions based on simulated time.
+ *
+ * 3. Render:
+ *    - Clear the renderer.
+ *    - Render Earth map.
+ *    - Render satellites at their current positions.
+ *    - Collect visibility states of satellites.
+ *    - Update UI speed display.
+ *    - Render UI (dropdown and speed indicator).
+ *    - Present the final rendered frame.
+ */
 void Application::run() {
     SDL_Event e;
 
@@ -118,14 +177,3 @@ void Application::run() {
 
     }
 }
-
-void Application::cleanup() {
-    delete map;
-    delete satelliteRenderer;
-    delete ui;
-    delete updateManager;
-
-    TTF_Quit();
-    SDL_Quit();
-}
-
