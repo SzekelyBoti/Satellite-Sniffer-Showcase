@@ -12,8 +12,6 @@
 GPSPosition::GPSPosition(double lat, double lon, double alt) 
     : latitude(lat), longitude(lon), altitude(alt) {}
 
-GPSPosition::~GPSPosition() {}
-
 /**
  * @brief Returns the latitude of the GPS position.
  *

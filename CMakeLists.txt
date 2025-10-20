@@ -3,12 +3,12 @@ project(SatelliteTracker)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# ============ SDL2 ===============
+# ================= SDL2 =================
 find_package(SDL2 CONFIG REQUIRED)
 find_package(SDL2_image CONFIG REQUIRED)
 find_package(SDL2_ttf CONFIG REQUIRED)
 
-# ============ SGP4 ===============
+# ================= SGP4 =================
 find_library(SGP4_LIBRARY NAMES sgp4 libsgp4)
 if(SGP4_LIBRARY)
     message(STATUS "Found system libsgp4: ${SGP4_LIBRARY}")
@@ -18,15 +18,8 @@ else()
     set(SGP4_LIBRARY sgp4)
 endif()
 
-# ============ Include Dirs ========
-include_directories(include)
-include_directories(src)
-include_directories(include/sgp4/libsgp4)
-
-# ============ Executable ==========
-add_executable(SatelliteTracker
-        main.cpp
-
+# ================= Library =================
+add_library(satellite_lib
         include/Application.h
         include/IRenderer.h
         include/SDLRenderer.h
@@ -43,6 +36,8 @@ add_executable(SatelliteTracker
         include/UpdateManager.h
         include/UpdateMode.h
         include/SGP4Converter.h
+        include/UIManager.h
+        include/RenderableAsset.h
 
         src/Application.cpp
         src/SDLRenderer.cpp
@@ -57,14 +52,20 @@ add_executable(SatelliteTracker
         src/GPSPosition.cpp
         src/UpdateManager.cpp
         src/SGP4Converter.cpp
-        include/UIManager.h
         src/UIManager.cpp
-        include/RenderableAsset.h
         src/ReadableAsset.cpp
 )
 
-# ============ Linking =============
-target_link_libraries(SatelliteTracker
+target_include_directories(satellite_lib
+        PUBLIC
+        include
+        include/sgp4/libsgp4
+        ${SDL2_INCLUDE_DIRS}
+        ${SDL2_IMAGE_INCLUDE_DIRS}
+        ${SDL2_TTF_INCLUDE_DIRS}
+)
+
+target_link_libraries(satellite_lib
         PRIVATE
         SDL2::SDL2
         SDL2_image::SDL2_image
@@ -72,10 +73,12 @@ target_link_libraries(SatelliteTracker
         ${SGP4_LIBRARY}
 )
 
-target_include_directories(SatelliteTracker PRIVATE
-        include
-        src
-        include/sgp4/libsgp4
-)
+# ================= Executable =================
+add_executable(SatelliteTracker main.cpp)
+target_link_libraries(SatelliteTracker PRIVATE satellite_lib)
 
+# ================= GoogleTest =================
+enable_testing()
+add_subdirectory(googletest)
 
+add_subdirectory(tests)

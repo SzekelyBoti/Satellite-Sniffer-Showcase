@@ -4,9 +4,9 @@
 #include "SatelliteRenderer.h"
 #include "SatelliteManager.h"
 #include "SGP4Converter.h"
-#include "UpdateManager.h"
 #include "UIManager.h"
 
+class UpdateManager;
 // Main application class that manages initialization, running the simulation, and rendering
 class Application {
 public:
