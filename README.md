@@ -6,16 +6,18 @@
     <img src="Images/app.png" alt="Logo" width="500" height="500">
   </a>
 
-<h3 align="center">Satellite Tracker</h3>
+<h3 align="center">🛰️ Satellite Tracker</h3>
 
   <p align="center">
-    A C++ application for tracking satellites in real time using TLE data. 
+    A C++ application for tracking satellites in real time using TLE data.  
     Built with SDL2 for rendering, SGP4 for orbital propagation, and includes a suite of unit tests.
     <br />
   </p>
 </div>
 
-## Table of Contents
+---
+
+## 🗂️ Table of Contents
 <details>
   <summary>Click to expand</summary>
   <ol>
@@ -23,43 +25,57 @@
     <li><a href="#built-with">Built With</a></li>
     <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
 
-## About The Project
+---
 
-Satellite Tracker is a C++ application for visualizing and tracking satellites using real-world TLE (Two-Line Element) data. It provides:
+## 🛰️ About The Project
 
-- Real-time simulation of satellite positions using **SGP4** propagation.
-- 2D map rendering of Earth and satellites with **SDL2**.
-- Ability to toggle satellite visibility and control simulation speed.
-- A modular design with unit tests for **SatelliteManager, GPSPosition, EarthMap, SGP4Converter, TLEParser**, and **UpdateManager**.
+Satellite Tracker is a C++ application for visualizing and tracking satellites using real-world TLE (Two-Line Element) data.  
+It provides:
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-### Built With
-
-* [![C++20][C++20]][C++20-url]
-* [![SDL2][SDL2]][SDL2-url]
-* [![SGP4][SGP4]][SGP4-url]
-* [![GoogleTest][GOOGLETEST]][GOOGLETEST-url]
+- 🌍 Real-time simulation of satellite positions using **SGP4** propagation  
+- 🗺️ 2D map rendering of Earth and satellites with **SDL2**  
+- 🔄 Ability to toggle satellite visibility and control simulation speed  
+- 🧩 Modular design with unit tests for **SatelliteManager**, **GPSPosition**, **EarthMap**, **SGP4Converter**, **TLEParser**, and **UpdateManager**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Getting Started
+---
+
+## 🧱 Built With
+
+| Tool | Description |
+|------|--------------|
+| <img src="https://raw.githubusercontent.com/isocpp/logos/master/cpp_logo.png" width="30"/> [![C++20][C++20]][C++20-url] | Core programming language for the project |
+| <img src="https://www.libsdl.org/media/SDL_logo.png" width="30"/> [![SDL2][SDL2]][SDL2-url] | Rendering and input handling |
+| <img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" width="30"/> [![SGP4][SGP4]][SGP4-url] | Satellite orbit propagation |
+| <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" width="30"/> [![GoogleTest][GOOGLETEST]][GOOGLETEST-url] | Framework for unit testing |
+
+<p align="center">
+  🚀 <i>Reliable • Modular • Cross-Platform</i> 🌐
+</p>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+
+## ⚙️ Getting Started
 
 Follow these steps to build and run the project locally.
 
-### Prerequisites
+### 🧩 Prerequisites
 
-- **C++20 compiler** (GCC/Clang/MSVC)
-- **CMake ≥ 3.20**
-- **SDL2** and related libraries installed
-- **vcpkg** (optional, if using for package management)
+- 💻 **C++20 compiler** (GCC/Clang/MSVC)
+- 🛠️ **CMake ≥ 3.20**
+- 🎮 **SDL2** and related libraries installed
+- 📦 **vcpkg** (optional for dependency management)
 
-### Installation
+### 🏗️ Installation
 
-1. Clone the repo:
+1. **Clone the repository**
    ```sh
    git clone https://github.com/your_username/SatelliteTracker.git
    cd SatelliteTracker
@@ -79,15 +95,15 @@ Follow these steps to build and run the project locally.
    ./tests/SatelliteTests
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-Usage
+🎮 Usage
 
-Load TLE files of satellites.
+📡 Load TLE files of satellites
 
-Toggle visibility of satellites.
+👁️ Toggle satellite visibility
 
-Adjust simulation speed and mode (Manual / Real-time / Simulation).
+⏩ Adjust simulation speed and mode (Manual / Real-time / Simulation)
 
-Visualize satellite positions on the Earth map in real time.
+🌍 Visualize satellite positions on the Earth map in real time
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
